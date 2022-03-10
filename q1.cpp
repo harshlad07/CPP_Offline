@@ -1,50 +1,60 @@
 #include<iostream>
 using namespace std;
 
-class base
+class b1
 {
-	int i,j;
+	protected:
+		int i;
 	public:
-		base()
+		b1(int x)
 		{
-			cout<<"--->"<<endl;
+			i=x;
+			cout<<i<<endl;
 		}
-		void set(int a, int b)
+		~b1()
 		{
-			i=a;
-			j=b;
-		}
-		void show()
-		{
-			cout<<i<<" "<<j;
+			cout<<"\nDestructung b1"<<endl;;
 		}
 };
 
-class derived: virtual private base
+class b2
 {
-	int k;
+	protected:
+		int k;
 	public:
-		derived()
+		b2(int x)
 		{
-			cout<<"\n<--";
+			k=x;
+			cout<<k<<endl;
 		}
-		derived(int x)
+		~b2()
 		{
-			cout<<"\n--->";
+			cout<<"Destructing b2"<<endl;
 		}
-		void showk()
-		{
-			cout<<k;
-		}
+};
+
+class dr: public b1, public b2
+{
+	int j;
+public:
+	dr(int x, int y, int z): b1(y), b2(z)
+	{
+		j= x;
+		cout<<"\nConstructing dr"<<endl;
+	}
+	~dr()
+	{
+		cout<<"Destrucing dr"<<endl;;
+	}
+	void show()
+	{
+		cout<<i<<j<<k<<endl;
+	}
 };
 
 int main()
 {
-	base b;
-	derived ob(3);
-	//ob.set(1,2);
-	derived d1;
-	derived d2(10);
-	//ob.show();
+	dr ob(3,4,5);
+	ob.show();
 	return 0;
 }
